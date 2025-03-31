@@ -4,8 +4,9 @@
     "\\final-proj",
     "\\final-proj\\public",
     "\\final-proj\\server",
-    "\\final-proj\\src"
+    "\\final-proj\\src",
+    "\\final-proj\\src\\components"
   ],
-  "SelectedNode": "\\final-proj\\src\\App.jsx",
+  "SelectedNode": "\\final-proj\\src\\components\\detailsbar.jsx",
   "PreviewInSolutionExplorer": false
 }

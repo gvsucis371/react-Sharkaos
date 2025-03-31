@@ -11,18 +11,27 @@ body {
 
 
 .col {
-    display:inline-flex;
-    flex-direction:column;
-    background-color:white;
-    flex:auto;
+    display: inline-flex;
+    flex-direction: column;
+    padding: 4px;
+    border-bottom-width: 2px;
+    border: solid;
+    border-color: cadetblue;
+    background-color: white;
+}
+div {
+    padding: 2px;
 
+}
+label {
+    display:flex;
+    justify-content:right;
 }
 
 .row {
     display:flex;
     flex-direction:row;
-    border-bottom-width:2px;
-    border-color:cadetblue;
+  
 }
 
 
@@ -33,12 +42,13 @@ body {
     margin: auto;
     width: 70%;
     height: 70%;
+    align-items:start;
     background-color: lightgray;
 }
 
 
 button {
-    color: white;
+    color: black;
 }
 
 .round {
@@ -50,12 +60,17 @@ button {
 }
 
 .square {
-    min-width:50px;
-    height:50px;
-    margin:1px;
-    border-radius:8px;
-    background-color:lightslategrey;
-    color:black;
+    min-width: 50px;
+    height: 50px;
+    margin: 1px;
+    max-width:80px;
+    padding: 2px;
+    border-radius: 8px;
+    word-wrap: break-word; /* Breaks long words correctly */
+    overflow-wrap: break-word; /* Ensures compatibility */
+    vertical-align: top; /* Aligns text to the top */
+    background-color: lightslategrey;
+    color: black;
 }
 .square:focus {
     outline: none;
@@ -94,6 +109,7 @@ button {
 }
 #element-container{
     background-color:gray;
+    border-radius:3px;
     width:200px;
 
 }

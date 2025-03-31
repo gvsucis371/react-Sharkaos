@@ -3,9 +3,10 @@
 import './index.css'
 import ElementSort from './components/elementSort'
 import UnitBox from './components/unitBox'
-import Details from './components/detailsbar'
+import DetailsBar from './components/detailsbar'
 import React, { useState } from "react";
-import Todos from './components/buttons';
+
+import Add from './components/addButton';
 //import SQLite from 'react-native-sqlite-storage';
 
 
@@ -23,12 +24,7 @@ function toggleButtonState(elementId) {
         button.classList.remove("active");
     }
 };
-function New() {
-    return (
-    
-            <button className="square">+</button>
-     );
-}
+
 
 
 
@@ -63,36 +59,45 @@ export default function Mainbox() {
     const [units, setUnits] = useState(unitHC);
     const [activeSquare, setActiveSquare] = useState(null);
     const deleteHandler = id => {//perform callback function on each item
-        const newList = unitHC.filter(item => {//filter method
+        const newList = units.filter(item => {//filter method
             return item.id !== id
         })
 
         setUnits(newList);
     }
+    const updateHandler = (updatedUnit) => {
+        var updatedUnitList = []
+        //This section will be scrapped when the units are pulled from the database
+        if (updatedUnit.id==="") {
+            updatedUnit.id =units.length
+            updatedUnitList=[updatedUnit,...units]
+        } else {
+             updatedUnitList = units.map((unit) =>
+                unit.id === updatedUnit.id ? updatedUnit : unit //map new array
+            );
+        }
+        setUnits(updatedUnitList); // Update main unit list
+        setActiveSquare(updatedUnit); // Update active unit
+    };
         //MainBox
         //  new
-        //  elementsort
+        //  elementsort (currently vaporware)
         //  UnitBox
         //      Square
         //  Details
         return (
 
-            <div id="mainbox" className="" >
+            <div id="mainbox" className="row" >
                 <div className="col">
                     <div className="row">
-                        <New />
                         <ElementSort />
-                    </div>
-                    <div className="col">
-                        <UnitBox unitHC={units} selectUnit={setActiveSquare} />
+                        <Add setActiveUnit={setActiveSquare} />
 
                     </div>
+                     <UnitBox unitHC={units} selectUnit={setActiveSquare} />  
                 </div>
                 <div className="col">
-                    <Details activeUnit={activeSquare} deleteHandler={deleteHandler}/>
-                    <Todos />
-
-
+                    <DetailsBar activeUnit={activeSquare} deleteHandler={deleteHandler} updateHandler={updateHandler}/>
                 </div>
             </div>)
     }
