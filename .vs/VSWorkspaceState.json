@@ -1,9 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\public",
-    "\\src"
+    "\\final-proj",
+    "\\final-proj\\public",
+    "\\final-proj\\server",
+    "\\final-proj\\src"
   ],
-  "SelectedNode": "\\a.babelrc",
+  "SelectedNode": "\\final-proj\\src\\App.jsx",
   "PreviewInSolutionExplorer": false
 }
