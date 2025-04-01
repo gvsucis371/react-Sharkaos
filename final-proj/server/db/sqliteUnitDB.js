@@ -6,9 +6,7 @@ let Unit = require('../models/Unit')
 //Table:        Units
 
 class SqliteUnitDB {
-    //Create the table if not exists
-    //**** make it if not exists
-    static initialize() {
+    constructor() {
         this.db = new sqlite3.Database(__dirname + '/Units.sqlite', (err) => {
             if (err) {
                 console.error('Error opening Db', err.message);
@@ -16,14 +14,17 @@ class SqliteUnitDB {
                 console.log("COnnected to sqlite db");
             }
         });
+    }
+
+    static initialize() {
         this.db.serialize(() => {
-            this.db.run('CREATE TABLE IF NOT EXISTS Units (id INTEGER PRIMARY KEY AUTOINCREMENT, no INTEGER, name TEXT NOT NULL, element TEXT NOT NULL, sling TEXT NOT NULL);')
-            this.db.run('INSERT INTO Units ( no, name, element, sling) VALUES (20,"Nostradamas", "water", "pierce");')
-            this.db.run('INSERT INTO Units ( no, name, element, sling) VALUES (2,"Masamune", "fire","pierce");')
-            this.db.run('INSERT INTO Units ( no, name, element, sling) VALUES (1,"Kevin", "fire","pierce");')
-            this.db.run('INSERT INTO Units ( no, name, element, sling) VALUES (5,"2FA", "dark", "pierce");')
-            this.db.run('INSERT INTO Units ( no, name, element, sling) VALUES (700,"Cheshire", "dark","bounce");')
-            this.db.run('INSERT INTO Units ( no, name, element, sling) VALUES (90,"Mushroom", "dark", "bounce");')
+            this.db.run('CREATE TABLE IF NOT EXISTS Units (id INTEGER PRIMARY KEY AUTOINCREMENT, no INTEGER, name TEXT NOT NULL,class TEXT NOT NULL, element TEXT NOT NULL, sling TEXT NOT NULL, bias TEXT NOT NULL);')
+            this.db.run('INSERT INTO Units ( no, name, element, sling, bias) VALUES (20,"Nostradamas", "water", "pierce", "balance");')
+            this.db.run('INSERT INTO Units ( no, name, element, sling, bias) VALUES (2,"Masamune", "fire","pierce","blast");')
+            this.db.run('INSERT INTO Units ( no, name, element, sling, bias) VALUES (1,"Kevin", "fire","pierce", "speed");')
+            this.db.run('INSERT INTO Units ( no, name, element, sling, bias) VALUES (5,"2FA", "dark", "pierce","blast");')
+            this.db.run('INSERT INTO Units ( no, name, element, sling, bias) VALUES (700,"Cheshire", "dark","bounce", "balance");')
+            this.db.run('INSERT INTO Units ( no, name, element, sling, bias) VALUES (90,"Mushroom", "dark", "bounce","power");')
         });
     }
 
@@ -36,10 +37,10 @@ class SqliteUnitDB {
 
             this.db.all('SELECT * from Units', (err, rows) => {
                 if (err) {
-                    console.error("Error fetching units:", err);
+                    console.error("Error fetching all units:", err);
                     _reject(err);
                 } else {
-                    resolve(rows.map((item) => new Unit(item)));
+                    resolve(rows);
                 }
             });
         });
@@ -56,10 +57,10 @@ class SqliteUnitDB {
             console.log(sql);
             this.db.all(sql, (err, rows) => {
                 if (err) {
-                    console.erro("Error getting filtered units:", err);
+                    console.error("Error getting filtered units:", err);
 
                 } else {
-                    resolve(rows.map((item) => new Unit(item)));
+                    resolve(rows);
                 }
             });
         });
@@ -68,21 +69,22 @@ class SqliteUnitDB {
 
 
     }
-    // Notice that there is *a lot* of error handling missing here.
-    static find(id) {
-        return new Promise((resolve, reject) => {
-            this.db.all("SELECT * FROM Units WHERE id = ?", [id], (err, rows) => {
-                if (rows.length >= 1) {
-                    resolve(new Unit(rows[0]))
-                } else {
-                    reject(`Id ${id} not found`)
-                }
-            })
-        })
-    }
-    //Create unit
-    static create(d) {
-        let newUnit = new Unit(d);
+
+    //static find(id) {
+    //    return new Promise((resolve, reject) => {
+    //        this.db.get("SELECT 1 FROM Units WHERE id = ?", [id], (err, rows) => {
+    //            if (rows.length >= 1) {
+    //                resolve(rows)
+    //            } else {
+    //                reject(`Id ${id} not found`)
+    //            }
+    //        })
+    //    })
+    //}
+    //Receives unit={ no:,name:,element:,class:,bias:,sling:
+
+    static create(unit) {
+        let newUnit = {}
         //check length of errors is not positive
         if (newUnit.isValid().length<=0) {
             return new Promise((resolve, reject) => {
