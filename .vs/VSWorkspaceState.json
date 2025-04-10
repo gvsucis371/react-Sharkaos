@@ -2,11 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\final-proj",
-    "\\final-proj\\public",
+    "\\final-proj\\client",
     "\\final-proj\\server",
+    "\\final-proj\\server\\db",
     "\\final-proj\\src",
     "\\final-proj\\src\\components"
   ],
-  "SelectedNode": "\\final-proj\\src\\App.css",
+  "SelectedNode": "\\final-proj\\src\\App.jsx",
   "PreviewInSolutionExplorer": false
 }
