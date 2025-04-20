@@ -7,7 +7,7 @@ const UnitDB = require('./db/sqliteUnitDB')
 
 //'use strict';
 const app = express();
-const port = 3001;
+const port = 3003;
 
 
 //body parsing

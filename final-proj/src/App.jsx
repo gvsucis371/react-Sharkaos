@@ -66,7 +66,7 @@ export default function Mainbox() {
     useEffect(() => {
         console.log(units)
         if (units.length === 0) {
-            fetch('http://localhost:3001/units', {
+            fetch('http://localhost:3003/units', {
                 method: "GET",
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ export default function Mainbox() {
         //attempt delete from database
         try {
             //Attempt to call the delete in express which will ask the DB to delete
-            const response = await fetch(`http://localhost:3001/delete/${id}`, {
+            const response = await fetch(`http://localhost:3003/delete/${id}`, {
                 method: "DELETE",
             });
             if (!response.ok) {
@@ -118,7 +118,7 @@ export default function Mainbox() {
     const addUnit = async (newUnit) => {
         var updatedUnitList = []
         try {
-            const response = await fetch(`http://localhost:3001/new`, {
+            const response = await fetch(`http://localhost:3003/new`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -149,7 +149,7 @@ export default function Mainbox() {
 
         if (updatedUnit.id === "" || updatedUnit.id === undefined) {
             try {
-                const response = await fetch(`http://localhost:3001/new`, {
+                const response = await fetch(`http://localhost:3003/new`, {
                     method: "POST",
                     headers: {
                         'Content-Type': 'application/json',
@@ -172,7 +172,7 @@ export default function Mainbox() {
             //-----------FIX THIS SO IT CAN BE A FUNCTION
 
             try {
-                const response = await fetch(`http://localhost:3001/update/:${updatedUnit.id}`, {
+                const response = await fetch(`http://localhost:3003/update/:${updatedUnit.id}`, {
                     method: "PUT",
                     headers: {
                         'Content-Type': 'application/json',
